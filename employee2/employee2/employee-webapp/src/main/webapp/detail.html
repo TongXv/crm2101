@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>员工详情表</title>
+</head>
+<body>
+<script type="text/javascript" src="/employeeWeb/js/jquery-3.6.4.js"></script>
+<script type="text/javascript">
+    var ids = decodeURI(document.URL)
+    ids = ids.slice(ids.indexOf("=")+1)
+    $.ajax({
+        url: "/employeeWeb/xiangqing",
+        dataType: "json",
+        type : "get",
+        data : {"id" : ids},
+        success: function (res) {
+            $("#id").html(res[0].id)
+            $("#name").html(res[0].name)
+            $("#dname").html(res[0].dname)
+            $("#job").html(res[0].job)
+            $("#sal").html(res[0].sal)
+        },
+        error : function (obj) {
+          alert("错误")
+        }
+    })
+
+</script>
+
+员工ID:<span id="id"></span></br>
+姓名:<span id="name"></span></br>
+部门名称:<span id="dname"></span></br>
+职位:<span id="job"></span></br>
+工资:<span id="sal"></span></br>
+
+</body>
+</html>

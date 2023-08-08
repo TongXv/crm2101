@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>编辑信息</title>
+</head>
+<body>
+<script type="text/javascript">
+    window.onload = function () {
+        var str = window.location.search
+        var id = str.split("=")[1].split("&")[0]
+        document.getElementById("id").value = id
+        var name = str.split("=")[2].split("&")[0]
+        document.getElementById("name").value = name
+        var dname = str.split("=")[3].split("&")[0]
+        document.getElementById("dname").value = dname
+        var job = str.split("=")[4].split("&")[0]
+        document.getElementById("job").value = job
+        var sal = str.split("=")[5].split("&")[0]
+        document.getElementById("sal").value = sal
+        document.getElementById("sava").onclick = function () {
+            var xhr = new XMLHttpRequest()
+            xhr.onreadystatechange = function () {
+            }
+            xhr.open("post", "/employee/edit", true)
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+            var ids = document.getElementById("id").value
+            var names = document.getElementById("name").value
+            var dnames = document.getElementById("dname").value
+            var jobs = document.getElementById("job").value
+            var sals = document.getElementById("sal").value
+            xhr.send("id=" + ids + "&ids=" + id + "&name=" + names + "&dname=" + dnames + "&job=" + jobs + "&sal=" + sals)
+        }
+    }
+
+</script>
+
+员工ID<input type="text" id="id"><br>
+姓名<input type="text" id="name"><br>
+部门名称<input type="text" id="dname"><br>
+职位<input type="text" id="job"><br>
+工资<input type="text" id="sal"><br>
+<a href="lish.html"><button id="sava">保存</button></a>
+</body>
+</html>

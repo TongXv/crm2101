@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.powernode.employee.dao.AreaDao">
+    <select id="selectByAll" resultType="com.powernode.employee.pojo.Area">
+        select e.EMPNO id,e.ENAME name,d.DNAME dname,e.JOB job,e.SAL sal from EMP e join DEPT d on e.DEPTNO = d.DEPTNO
+    </select>
+    <select id="selectByNum" resultType="com.powernode.employee.pojo.Area">
+       select e.EMPNO id,e.ENAME name,d.DNAME dname,e.JOB job,e.SAL sal from EMP e join DEPT d on e.DEPTNO = d.DEPTNO where e.EMPNO = #{ids};
+    </select>
+
+    <delete id="deleteByNum">
+        delete from EMP where EMPNO = #{ida}
+    </delete>
+
+    <insert id="addByDEPT" >
+        insert into DEPT(DEPTNO,DNAME)values(#{ida},#{dname})
+    </insert>
+
+    <insert id="addByEmp">
+        insert into EMP(EMPNO,ENAME,JOB,SAL,DEPTNO)values(#{ida},#{name},#{job},#{sal},#{ida})
+    </insert>
+
+
+    <update id="updateByALL">
+        update DEPT d,EMP e set EMPNO=#{ida},ENAME=#{name},DNAME=#{dname},JOB=#{job},SAL=#{sal} where d.DEPTNO= e.DEPTNO and e.EMPNO = #{idb}
+    </update>
+</mapper>

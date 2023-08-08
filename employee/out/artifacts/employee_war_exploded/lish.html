@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>员工信息表</title>
+</head>
+<body>
+<script type="text/javascript" src="/employee/js/jquery-3.6.4.js"></script>
+<script type="text/javascript">
+    var sum
+    $(function () {
+        $.ajax({
+            type : "post",
+            url : "/employee/yuanGongXinXi",
+            async : false,
+            success : function (jsonStr) {
+                var parse = JSON.parse(jsonStr)
+                var html = ""
+                for (var i = 0;i < parse.length;i++){
+                    sum = parse.length
+                    var area = parse[i]
+                    html += "<tr>"
+                    html += "<td><input type=checkbox id="+i+">"+area.id+"</td>"
+                    html += "<td>"+area.name+"</td>"
+                    html += "<td>"+area.dname+"</td>"
+                    html += "<td>"+area.job+"</td>"
+                    html += "<td><a href=detail.html?id="+area.id+">查看</a></td>"
+                    html += "<td><a href=edit.html?id="+area.id+"&name="+area.name+"&dname="+area.dname+"&job="+area.job+"&sal="+area.sal+">编辑</a></td>"
+                    html += "</tr>"
+                }
+                $("#emp").html(html)
+            }
+        })
+    })
+    function addRow() {
+        var emp = document.getElementById("emp");
+        var tr = document.createElement("tr");
+        var td1 = document.createElement("td");
+        td1.innerHTML = "";
+        tr.appendChild(td1);
+        var td2 = document.createElement("td");
+        td2.innerHTML = "";
+        tr.appendChild(td2);
+        var td3 = document.createElement("td");
+        td3.innerHTML = "";
+        tr.appendChild(td3);
+        var td4 = document.createElement("td");
+        td4.innerHTML = "";
+        tr.appendChild(td4);
+        var td5 = document.createElement("td");
+        td5.innerHTML = "<a href=detail.html>查看</a>";
+        tr.appendChild(td5);
+        var td6 = document.createElement("td");
+        td6.innerHTML = "<a href=edit.html?id="+td1.innerHTML+"&name="+td1.innerHTML+"&dname="+td1.innerHTML+"&job="+td1.innerHTML+"&sal=>编辑</a>"
+        tr.appendChild(td6);
+        emp.appendChild(tr);
+    }
+    function deleteRow() {
+        for (var i = sum;i--;i>=0) {
+            var ckx = document.getElementById("" + i + "")
+            if (ckx.checked) {
+                var id = document.getElementById("emp").rows[i].cells[0].innerHTML.split(">")[1]
+                ckx.parentNode.parentNode.parentNode.removeChild(ckx.parentNode.parentNode)
+                $.ajax({
+                    type: "post",
+                    url: "/employee/delete",
+                    data : {"id" : id}
+                })
+            }
+        }
+    }
+</script>
+<input type="button" value="添加" onclick="addRow(this)"/>
+<input type="button" value="删除" onclick="deleteRow(this)"/>
+<table width="50%" border="1px">
+    <tr>
+        <th>员工ID</th>
+        <th>姓名</th>
+        <th>所属部门</th>
+        <th>职位</th>
+        <th>查看</th>
+        <th>编辑</th>
+    </tr>
+    <tbody  id="emp">
+
+    </tbody>
+</table>
+</body>
+</html>

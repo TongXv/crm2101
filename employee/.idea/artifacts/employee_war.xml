@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="employee:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/employee_war</output-path>
+    <root id="archive" name="employee_war.war">
+      <element id="artifact" artifact-name="employee:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/../../../JDBC/MySql Connector Java 5.1.23/mysql-connector-java-5.1.23-bin.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
